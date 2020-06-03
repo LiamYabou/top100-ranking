@@ -1,0 +1,48 @@
+categories:
+  - id: 0
+    name: amazon
+    url: https://www.amazon.com
+    path: "00"
+
+  - id: 1
+    name: Any Department
+    url: https://www.amazon.com/Best-Sellers/zgbs/ref=zg_bs_unv_0_amazon-devices_1
+    path: "01"
+    parent_id: 0
+
+  - id: 2
+    name: Amazon Devices & Accessories
+    url: https://www.amazon.com/Best-Sellers/zgbs/amazon-devices/ref=zg_bs_nav_0
+    path: "01.01"
+    parent_id: 1
+
+products:
+  - id: 1
+    name: Fire TV Stick streaming media player with Alexa built in, includes Alexa Voice Remote, HD, easy set-up, released 2019
+    rank: 1
+    page: 1
+    category_id: 2
+
+  - id: 2
+    name: Echo Dot (3rd Gen) - Smart speaker with Alexa - Charcoal
+    rank: 2
+    page: 1
+    category_id: 2
+
+  - id: 3
+    name: Fire TV Stick 4K streaming device with Alexa built in, Dolby Vision, includes Alexa Voice Remote, latest release
+    rank: 3
+    page: 1
+    category_id: 2
+
+  - id: 4
+    name: Echo Dot (3rd Gen) - Smart speaker with clock and Alexa - Sandstone
+    rank: 4
+    page: 1
+    category_id: 2
+
+  - id: 5
+    name: Echo Show 8 - HD 8\" smart display with Alexa  - Charcoal
+    rank: 5
+    page: 1
+    category_id: 2
