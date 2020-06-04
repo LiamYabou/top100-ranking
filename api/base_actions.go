@@ -1,4 +1,4 @@
-package app
+package api
 
 type categoryRow struct {
 	id       int
@@ -20,7 +20,7 @@ type content map[string]interface{}
 
 type response struct {
 	Status  string `json:"status"`
-	Data    *content `json:"data,omitempty"`
+	Data    *content `json:"data"`
 	Message string `json:"message,omitempty"`
 	Code    int `json:"code,omitempty"`
 }

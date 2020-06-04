@@ -1,4 +1,4 @@
-package app
+package api
 
 import (
 	"fmt"
@@ -6,33 +6,37 @@ import (
 	"encoding/json"
 	"github.com/LiamYabou/top100-pkg/logger"
 	"github.com/LiamYabou/top100-ranking/preference"
+	"github.com/LiamYabou/top100-ranking/app"
 )
 
+func encode(obj *response) (jsonResonse string) {
+	jsonObj, err := json.Marshal(obj)
+	if err != nil {
+		logger.Error("Failed to marshal an object.", err)
+	}
+	jsonResonse = string(jsonObj)
+	return jsonResonse
+}
+
 func FindProducts(categoryId int, page int, opts *preference.Options) string {
+	if opts.RunTimeEnv != "test" {
+		defer app.Finalize()
+	}
 	// args validation
 	if categoryId == 0 {
 		response := &response{
 			Status: "fail",
 			Data: &content{"category_id": "The category id is invaild, it should be greater than zero."},
 		}
-		jsonResponse, err := json.Marshal(response)
-		if err != nil {
-			logger.Error("Failed to marshal an object.", err)
-		}
-		return string(jsonResponse)
+		return encode(response)
 	}
 	if page == 0 || page > 2 {
 		response := &response{
 			Status: "fail",
 			Data: &content{"page": "The page number is invaild, it should either be 1 or 2."},
 		}
-		jsonResponse, err := json.Marshal(response)
-		if err != nil {
-			logger.Error("Failed to marshal an object.", err)
-		}
-		return string(jsonResponse)
+		return encode(response)
 	}
-	defer Finalize()
 	stmt := fmt.Sprintf("select name, rank from products where category_id = %d and page = %d order by rank asc", categoryId, page)
 	rows, err := opts.DB.Query(context.Background(), stmt)
 	if err != nil {
@@ -40,11 +44,7 @@ func FindProducts(categoryId int, page int, opts *preference.Options) string {
 			Status: "error",
 			Message: fmt.Sprintf("Failed to query on DB. Error: %s", err),
 		}
-		jsonResponse, err := json.Marshal(response)
-		if err != nil {
-			logger.Error("Failed to marshal an object.", err)
-		}
-		return string(jsonResponse)
+		return encode(response)
 	}
 	defer rows.Close()
 	set := make([]*productRow, 0)
@@ -56,11 +56,7 @@ func FindProducts(categoryId int, page int, opts *preference.Options) string {
 				Status: "error",
 				Message: fmt.Sprintf("Failed to assign a value by the Scan. Error: %s", err),
 			}
-			jsonResponse, err := json.Marshal(response)
-			if err != nil {
-				logger.Error("Failed to marshal an object.", err)
-			}
-			return string(jsonResponse)
+			return encode(response)
 		}
 		set = append(set, row)
 	}
@@ -70,19 +66,15 @@ func FindProducts(categoryId int, page int, opts *preference.Options) string {
 			Status: "error",
 			Message: fmt.Sprintf("The errors were encountered during the iteration. Error: %s", err),
 		}
-		jsonResponse, err := json.Marshal(response)
-		if err != nil {
-			logger.Error("Failed to marshal an object.", err)
-		}
-		return string(jsonResponse)
+		return encode(response)
 	}
+	var data *content
+	if len(set) != 0 {
+		data = &content{"products": set}
+	} 
 	response := &response{
 		Status: "success",
-		Data: &content{"products": set},
+		Data: data,
 	}
-	jsonResponse, err := json.Marshal(response)
-	if err != nil {
-		logger.Error("Failed to marshal an object.", err)
-	}
-	return string(jsonResponse)
+	return encode(response)
 }
