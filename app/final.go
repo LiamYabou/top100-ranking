@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/LiamYabou/top100-ranking/pkg/variable"
+	"github.com/LiamYabou/top100-ranking/variable"
 )
 
 func Finalize() {

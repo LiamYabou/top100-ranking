@@ -6,8 +6,8 @@ import (
 	"gopkg.in/khaiql/dbcleaner.v2"
 	"gopkg.in/khaiql/dbcleaner.v2/engine"
 	"github.com/jackc/pgx/v4/pgxpool"
-	"github.com/LiamYabou/top100-ranking/pkg/variable"
-	"github.com/LiamYabou/top100-ranking/pkg/db"
+	"github.com/LiamYabou/top100-ranking/variable"
+	"github.com/LiamYabou/top100-pkg/db"
 )
 
 func InitDB() (msg string, err error) {

@@ -1,12 +1,12 @@
-package action_test
+package app_test
 
 import (
 	"os"
 	"fmt"
 	"testing"
 	"github.com/romanyx/polluter"
-	"github.com/LiamYabou/top100-ranking/pkg/variable"
-	"github.com/LiamYabou/top100-ranking/pkg/test"
+	"github.com/LiamYabou/top100-ranking/variable"
+	"github.com/LiamYabou/top100-ranking/test"
 	"github.com/stretchr/testify/suite"
 )
 

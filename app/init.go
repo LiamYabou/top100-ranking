@@ -2,10 +2,10 @@ package app
 
 import (
 	"os"
-	"github.com/LiamYabou/top100-ranking/pkg/logger"
-	"github.com/LiamYabou/top100-ranking/pkg/db"
-	"github.com/LiamYabou/top100-ranking/pkg/variable"
-	"github.com/LiamYabou/top100-ranking/pkg/rabbitmq"
+	"github.com/LiamYabou/top100-pkg/logger"
+	"github.com/LiamYabou/top100-pkg/db"
+	"github.com/LiamYabou/top100-ranking/variable"
+	"github.com/LiamYabou/top100-pkg/rabbitmq"
 	"github.com/streadway/amqp"
 	"github.com/jackc/pgx/v4/pgxpool"
 )
@@ -29,7 +29,7 @@ func init() {
 	case "production":
 		logger.SetProductionConfigs()
 	}
-	DBPool, err = db.Open()
+	DBPool, err = db.Open(variable.DBURL)
 	if err != nil {
 		logger.Error("Failed to connect the DB.", err)
 	}
