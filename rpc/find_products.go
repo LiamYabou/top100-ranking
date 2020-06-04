@@ -1,4 +1,4 @@
-package api
+package rpc
 
 import (
 	"fmt"
@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"github.com/LiamYabou/top100-pkg/logger"
 	"github.com/LiamYabou/top100-ranking/preference"
-	"github.com/LiamYabou/top100-ranking/app"
 )
 
 func encode(obj *response) (jsonResonse string) {
@@ -19,9 +18,6 @@ func encode(obj *response) (jsonResonse string) {
 }
 
 func FindProducts(categoryId int, page int, opts *preference.Options) string {
-	if opts.RunTimeEnv != "test" {
-		defer app.Finalize()
-	}
 	// args validation
 	if categoryId == 0 {
 		response := &response{

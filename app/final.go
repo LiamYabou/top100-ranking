@@ -9,4 +9,5 @@ func Finalize() {
 		file.Close()
 	}
 	DBPool.Close()
+	AMQPConn.Close()
 }
