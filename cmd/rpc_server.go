@@ -67,7 +67,7 @@ func performRPCServer(opts *preference.Options) {
 			// args[2] represents the number of the page.
 			categoryId, _ := strconv.Atoi(args[1]) 
 			page, _ := strconv.Atoi(args[2])
-			response := api.FindProducts(categoryId, page, opts)
+			response := api.FindRankings(categoryId, page, opts)
 			err = ch.Publish(
 				"",        // exchange
 				d.ReplyTo, // routing key

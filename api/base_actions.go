@@ -1,11 +1,13 @@
 package api
 
+import "errors"
+
 type categoryRow struct {
-	id       int
-	name     string
-	url      string
-	path     string
-	parentID int
+	Id       int `json:"id,omitempty"`
+	Name     string `json:"name"`
+	Url     string `json:"url"`
+	Path     string `json:"path,omitempty"`
+	ParentID int `json:"parent_id,omitempty"`
 }
 
 type productRow struct {
@@ -24,3 +26,5 @@ type response struct {
 	Message string `json:"message,omitempty"`
 	Code    int `json:"code,omitempty"`
 }
+
+var ErrNoRows = errors.New("no rows in result set")
