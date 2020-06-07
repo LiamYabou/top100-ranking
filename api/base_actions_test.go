@@ -1,4 +1,4 @@
-package rpc_test
+package api_test
 
 import (
 	"os"

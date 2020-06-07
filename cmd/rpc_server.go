@@ -7,7 +7,7 @@ import (
 	"github.com/LiamYabou/top100-ranking/app"
 	"github.com/LiamYabou/top100-ranking/preference"
 	"github.com/LiamYabou/top100-pkg/logger"
-	"github.com/LiamYabou/top100-ranking/rpc"
+	"github.com/LiamYabou/top100-ranking/api"
 	"github.com/streadway/amqp"
 )
 
@@ -67,7 +67,7 @@ func performRPCServer(opts *preference.Options) {
 			// args[2] represents the number of the page.
 			categoryId, _ := strconv.Atoi(args[1]) 
 			page, _ := strconv.Atoi(args[2])
-			response := rpc.FindProducts(categoryId, page, opts)
+			response := api.FindProducts(categoryId, page, opts)
 			err = ch.Publish(
 				"",        // exchange
 				d.ReplyTo, // routing key

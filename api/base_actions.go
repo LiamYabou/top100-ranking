@@ -1,4 +1,4 @@
-package rpc
+package api
 
 type categoryRow struct {
 	id       int
