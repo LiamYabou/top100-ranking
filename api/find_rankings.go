@@ -66,7 +66,7 @@ func FindRankings(categoryId int, page int, opts *preference.Options) string {
 		return encode(response)
 	}
 	// Fetch categories from DB
-	stmt = fmt.Sprintf("select name, url from categories where parent_id = %d order by path asc", categoryId)
+	stmt = fmt.Sprintf("select id, name from categories where parent_id = %d order by path asc", categoryId)
 	rows, err = opts.DB.Query(context.Background(), stmt)
 	if err != nil {
 		response := &response{
@@ -79,7 +79,7 @@ func FindRankings(categoryId int, page int, opts *preference.Options) string {
 	categorySet := make([]*categoryRow, 0)
 	for rows.Next() {
 		row := &categoryRow{}
-		err = rows.Scan(&row.Name, &row.Url)
+		err = rows.Scan(&row.Id, &row.Name)
 		if err != nil {
 			response := &response{
 				Status: "error",
@@ -97,9 +97,9 @@ func FindRankings(categoryId int, page int, opts *preference.Options) string {
 		}
 		return encode(response)
 	}
-	var selectedCategoryEntry string
+	var selectedCategory string
 	stmt = fmt.Sprintf("select name from categories where id = %d", categoryId)
-	err = opts.DB.QueryRow(context.Background(), stmt).Scan(&selectedCategoryEntry)
+	err = opts.DB.QueryRow(context.Background(), stmt).Scan(&selectedCategory)
 	if err != nil && err.Error() == ErrNoRows.Error() {
 		response := &response{
 			Status: "success",
@@ -113,11 +113,20 @@ func FindRankings(categoryId int, page int, opts *preference.Options) string {
 		}
 		return encode(response)
 	}
+	// Fetch the root category
+	var rootCategory *categoryRow
+	if selectedCategory != "Any Department" {
+		rootCategory = &categoryRow{
+			Id: 1,
+			Name: "Any Department",
+		}
+	}
 	var data *content
 	data = &content{
 		"products": productSet,
 		"categories": categorySet,
-		"selected_category_entry": selectedCategoryEntry,
+		"root_category": rootCategory,
+		"selected_category_name": selectedCategory,
 	}
 	response := &response{
 		Status: "success",

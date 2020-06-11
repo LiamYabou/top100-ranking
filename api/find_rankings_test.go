@@ -27,7 +27,7 @@ func (a *actionSuite) TestFindProducts() {
 	assert.Equal(expected, actual, failedMsg)
 	// ## Empty product set
 	categoryId = 1
-	expected = `{"status":"success","data":{"categories":[{"name":"Amazon Devices \u0026 Accessories","url":"https://www.amazon.com/Best-Sellers/zgbs/amazon-devices/ref=zg_bs_nav_0"}],"products":[],"selected_category_entry":"Any Department"}}`
+	expected = `{"status":"success","data":{"categories":[{"id":2,"name":"Amazon Devices \u0026 Accessories"}],"products":[],"root_category":null,"selected_category_name":"Any Department"}}`
 	actual = api.FindRankings(categoryId, page, opts)
 	failedMsg = fmt.Sprintf("Failed, expected the result: %v, got the result: %v", expected, actual)
 	assert.Equal(expected, actual, failedMsg)

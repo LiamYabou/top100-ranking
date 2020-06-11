@@ -4,8 +4,8 @@ import "errors"
 
 type categoryRow struct {
 	Id       int `json:"id,omitempty"`
-	Name     string `json:"name"`
-	Url     string `json:"url"`
+	Name     string `json:"name,omitempty"`
+	Url     string `json:"url,omitempty"`
 	Path     string `json:"path,omitempty"`
 	ParentID int `json:"parent_id,omitempty"`
 }
