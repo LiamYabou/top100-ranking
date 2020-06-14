@@ -8,5 +8,6 @@ func Finalize() {
 	if variable.Env == "development" {
 		file.Close()
 	}
-	DBPool.Close()
+	DBpool.Close()
+	AMQPconn.Close()
 }

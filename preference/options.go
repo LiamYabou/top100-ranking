@@ -4,6 +4,7 @@ package preference
 
 import (
 	"github.com/jackc/pgx/v4/pgxpool"
+	"github.com/streadway/amqp"
 )
 
 // Option represents the optional function.
@@ -11,7 +12,11 @@ type Option func(opts *Options)
 
 type Options struct {
 	DB *pgxpool.Pool
-	RunTimeEnv string
+	AMQP *amqp.Connection
+	Concurrency   int
+	PrefetchCount int
+	Delivery      <-chan amqp.Delivery
+	InvokerInterval int32
 }
 
 func LoadOptions(options ...Option) *Options {
@@ -28,9 +33,9 @@ func WithDB(db *pgxpool.Pool) Option {
 	}
 }
 
-func WithRunTimeEnv(runTimeEnv string) Option {
+func WithDelivery(delivery <-chan amqp.Delivery) Option {
 	return func(opts *Options) {
-		opts.RunTimeEnv = runTimeEnv
+		opts.Delivery = delivery
 	}
 }
 

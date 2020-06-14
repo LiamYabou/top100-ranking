@@ -7,14 +7,26 @@ categories:
   - id: 1
     name: Any Department
     url: https://www.amazon.com/Best-Sellers/zgbs/ref=zg_bs_unv_0_amazon-devices_1
-    path: "01"
+    path: 01
     parent_id: 0
 
   - id: 2
     name: Amazon Devices & Accessories
     url: https://www.amazon.com/Best-Sellers/zgbs/amazon-devices/ref=zg_bs_nav_0
-    path: "01.01"
+    path: 01.01
     parent_id: 1
+
+  - id: 3
+    name: Amazon Device Accessories
+    url: https://www.amazon.com/Best-Sellers-Amazon-Device-Accessories/zgbs/amazon-devices/370783011/ref=zg_bs_nav_1_amazon-devices/145-7972861-4524441
+    path: 01.01.01
+    parent_id: 2
+
+  - id: 4
+    name: Amazon Devices
+    url: https://www.amazon.com/Best-Sellers-Amazon-Devices/zgbs/amazon-devices/2102313011/ref=zg_bs_nav_1_amazon-devices/145-7972861-4524441
+    path: 01.01.02
+    parent_id: 2
 
 products:
   - id: 1
