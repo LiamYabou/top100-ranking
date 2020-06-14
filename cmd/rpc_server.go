@@ -14,14 +14,14 @@ import (
 func main() {
 	defer app.Finalize()
 	opts := &preference.Options{
-		DB: app.DBPool,
-		AMQP: app.AMQPConn, 
+		DB: app.DBpool,
+		AMQP: app.AMQPconn, 
 	}
 	opts = preference.LoadOptions(preference.WithOptions(*opts))
-	performRPCServer(opts)
+	performRPCserver(opts)
 }
 
-func performRPCServer(opts *preference.Options) {
+func performRPCserver(opts *preference.Options) {
 	ch, err := opts.AMQP.Channel()
 	if err != nil {
 		logger.Error("Failed to open a channel.", err)

@@ -11,8 +11,8 @@ import (
 )
 
 var (
-	DBPool *pgxpool.Pool
-	AMQPConn *amqp.Connection
+	DBpool *pgxpool.Pool
+	AMQPconn *amqp.Connection
 	file     *os.File
 )
 
@@ -29,11 +29,11 @@ func init() {
 	case "production":
 		logger.SetProductionConfigs()
 	}
-	DBPool, err = db.Open(variable.DBURL)
+	DBpool, err = db.Open(variable.DBURL)
 	if err != nil {
 		logger.Error("Failed to connect the DB.", err)
 	}
-	AMQPConn, err = rabbitmq.Open()
+	AMQPconn, err = rabbitmq.Open()
 	if err != nil {
 		logger.Error("Failed to connect the RabbitMQ.", err)
 	}
