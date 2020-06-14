@@ -13,6 +13,10 @@ type Option func(opts *Options)
 type Options struct {
 	DB *pgxpool.Pool
 	AMQP *amqp.Connection
+	Concurrency   int
+	PrefetchCount int
+	Delivery      <-chan amqp.Delivery
+	InvokerInterval int32
 }
 
 func LoadOptions(options ...Option) *Options {
@@ -26,6 +30,12 @@ func LoadOptions(options ...Option) *Options {
 func WithDB(db *pgxpool.Pool) Option {
 	return func(opts *Options) {
 		opts.DB = db
+	}
+}
+
+func WithDelivery(delivery <-chan amqp.Delivery) Option {
+	return func(opts *Options) {
+		opts.Delivery = delivery
 	}
 }
 
