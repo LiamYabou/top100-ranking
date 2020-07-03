@@ -18,6 +18,7 @@ var (
 	maxPoolConns = os.Getenv("MAX_POOL_CONNECTIONS")
 	minPoolConns = os.Getenv("MIN_POOL_CONNECTIONS")
 	DBURL = buildDBURL()
+	AMQPURL = os.Getenv("CLOUDAMQP_URL")
 	TestDBURL  = os.Getenv("TEST_DB_DSN")
 	FixturesURI = os.Getenv("FIXTURES_URI")
 )
