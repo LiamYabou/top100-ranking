@@ -9,6 +9,7 @@ import (
 
 var (
 	Env =  os.Getenv("ENV")
+	AppName = os.Getenv("APP_NAME")
 	dbName     = os.Getenv("DB_NAME")
 	dbUser     = os.Getenv("DB_USER")
 	dbPassword = os.Getenv("DB_PASSWORD")
@@ -18,11 +19,19 @@ var (
 	maxPoolConns = os.Getenv("MAX_POOL_CONNECTIONS")
 	minPoolConns = os.Getenv("MIN_POOL_CONNECTIONS")
 	DBURL = buildDBURL()
+	Concurrency = os.Getenv("GOROUTINE_CONCURRENCY")
+	AMQPURL = os.Getenv("CLOUDAMQP_URL")
 	TestDBURL  = os.Getenv("TEST_DB_DSN")
 	FixturesURI = os.Getenv("FIXTURES_URI")
+	NewRelicLicenseKey = os.Getenv("NEW_RELIC_LICENSE_KEY")
 )
 
 func buildDBURL() (dbURL string) {
-	dbURL = fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s&pool_max_conns=%s&pool_min_conns=%s", dbUser, dbPassword, dbHost, dbPort, dbName, sslMode, maxPoolConns, minPoolConns)
+	switch Env {
+	case "development":
+		dbURL = fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s&pool_max_conns=%s&pool_min_conns=%s", dbUser, dbPassword, dbHost, dbPort, dbName, sslMode, maxPoolConns, minPoolConns)
+	default:
+		dbURL = fmt.Sprintf("%s?sslmode=require&pool_max_conns=%s&pool_min_conns=%s", os.Getenv("DATABASE_URL"), maxPoolConns, minPoolConns)
+	}
 	return dbURL
 }
