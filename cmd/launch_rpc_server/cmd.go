@@ -8,6 +8,7 @@ import (
 	"time"
 	"github.com/LiamYabou/top100-ranking/app"
 	"github.com/LiamYabou/top100-ranking/preference"
+	"github.com/LiamYabou/top100-ranking/variable"
 	"github.com/LiamYabou/top100-pkg/logger"
 	"github.com/LiamYabou/top100-ranking/api"
 	"github.com/streadway/amqp"
@@ -16,11 +17,12 @@ import (
 
 func main() {
 	defer app.Finalize()
+	c, _ := strconv.Atoi(variable.Concurrency)
 	opts := &preference.Options{
 		DB: app.DBpool,
 		AMQP: app.AMQPconn,
-		Concurrency:   25,
-		PrefetchCount: 100,
+		Concurrency:   c,
+		PrefetchCount: (c * 2),
 		InvokerInterval: 200,
 	}
 	opts = preference.LoadOptions(preference.WithOptions(*opts))
