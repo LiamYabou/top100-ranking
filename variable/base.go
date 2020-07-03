@@ -9,6 +9,7 @@ import (
 
 var (
 	Env =  os.Getenv("ENV")
+	AppName = os.Getenv("APP_NAME")
 	dbName     = os.Getenv("DB_NAME")
 	dbUser     = os.Getenv("DB_USER")
 	dbPassword = os.Getenv("DB_PASSWORD")
@@ -22,6 +23,7 @@ var (
 	AMQPURL = os.Getenv("CLOUDAMQP_URL")
 	TestDBURL  = os.Getenv("TEST_DB_DSN")
 	FixturesURI = os.Getenv("FIXTURES_URI")
+	NewRelicLicenseKey = os.Getenv("NEW_RELIC_LICENSE_KEY")
 )
 
 func buildDBURL() (dbURL string) {
