@@ -4,7 +4,7 @@ PROJECTNAME=$(shell basename "${PWD}")
 ## test: run all the test of the project.
 test: go-test
 
-## compile: compile the instructions located the `./cmd` directory into the `./bin` directory.
+## compile: compile the instructions located at the `./cmd` directory into the `./bin` directory.
 compile: go-tidy go-compile-rpc-server-cmd
 
 go-test:
