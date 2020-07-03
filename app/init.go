@@ -6,6 +6,7 @@ import (
 	"github.com/LiamYabou/top100-pkg/db"
 	"github.com/LiamYabou/top100-ranking/variable"
 	"github.com/LiamYabou/top100-pkg/rabbitmq"
+	"github.com/LiamYabou/top100-pkg/monitor"
 	"github.com/streadway/amqp"
 	"github.com/jackc/pgx/v4/pgxpool"
 )
@@ -36,5 +37,9 @@ func init() {
 	AMQPconn, err = rabbitmq.Open(variable.AMQPURL)
 	if err != nil {
 		logger.Error("Failed to connect the RabbitMQ.", err)
+	}
+	err = monitor.InitSentry(variable.Env)
+	if err != nil {
+		logger.Error("Unable to configure Sentry.", err)
 	}
 }
