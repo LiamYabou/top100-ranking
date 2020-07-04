@@ -34,7 +34,7 @@ func FindRankings(categoryId int, page int, opts *preference.Options) string {
 		return encode(response)
 	}
 	// Fetch products from DB
-	stmt := fmt.Sprintf("select name, rank from products where category_id = %d and page = %d order by rank asc", categoryId, page)
+	stmt := fmt.Sprintf("select name, rank, image_path from products where category_id = %d and page = %d order by rank asc", categoryId, page)
 	rows, err := opts.DB.Query(context.Background(), stmt)
 	if err != nil {
 		response := &response{
@@ -47,7 +47,7 @@ func FindRankings(categoryId int, page int, opts *preference.Options) string {
 	productSet := make([]*productRow, 0)
 	for rows.Next() {
 		row := &productRow{}
-		err = rows.Scan(&row.Name, &row.Rank)
+		err = rows.Scan(&row.Name, &row.Rank, &row.ImagePath)
 		if err != nil {
 			response := &response{
 				Status: "error",
