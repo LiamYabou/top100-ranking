@@ -34,6 +34,7 @@ products:
     rank: 1
     page: 1
     category_id: 2
+    image_path: images/B0v6F98VAjwrgJ8U.jpg
 
   - id: 2
     name: Echo Dot (3rd Gen) - Smart speaker with Alexa - Charcoal

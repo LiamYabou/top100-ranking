@@ -1,6 +1,10 @@
 package api
 
-import "errors"
+import (
+	"errors"
+	"database/sql"
+	"encoding/json"
+)
 
 type categoryRow struct {
 	Id       int `json:"id,omitempty"`
@@ -16,6 +20,20 @@ type productRow struct {
 	Rank       int `json:"rank"`
 	Page       int `json:"page,omitempty"`
 	CategoryID int `json:"category_id,omitempty"`
+	ImagePath NullString `json:"image_path,omitempty"`
+}
+
+// NullString is an alias for sql.NullString data type
+type NullString struct {
+	sql.NullString
+}
+
+// MarshalJSON for NullString
+func (ns *NullString) MarshalJSON() ([]byte, error) {
+	if !ns.Valid {
+		return []byte("null"), nil
+	}
+	return json.Marshal(ns.String)
 }
 
 type content map[string]interface{}
