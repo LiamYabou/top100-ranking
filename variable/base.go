@@ -10,6 +10,7 @@ import (
 var (
 	Env =  os.Getenv("ENV")
 	AppName = os.Getenv("APP_NAME")
+	AppURI = os.Getenv("APP_URI")
 	dbName     = os.Getenv("DB_NAME")
 	dbUser     = os.Getenv("DB_USER")
 	dbPassword = os.Getenv("DB_PASSWORD")
@@ -22,7 +23,7 @@ var (
 	Concurrency = os.Getenv("GOROUTINE_CONCURRENCY")
 	AMQPURL = os.Getenv("CLOUDAMQP_URL")
 	TestDBURL  = os.Getenv("TEST_DB_DSN")
-	FixturesURI = os.Getenv("FIXTURES_URI")
+	TestFixturesURI = buildTestFixturesURI()
 	NewRelicLicenseKey = os.Getenv("NEW_RELIC_LICENSE_KEY")
 )
 
@@ -34,4 +35,8 @@ func buildDBURL() (dbURL string) {
 		dbURL = fmt.Sprintf("%s?sslmode=require&pool_max_conns=%s&pool_min_conns=%s", os.Getenv("DATABASE_URL"), maxPoolConns, minPoolConns)
 	}
 	return dbURL
+}
+
+func buildTestFixturesURI() (uri string) {
+	return fmt.Sprintf("%s/test/fixtures", AppURI)
 }

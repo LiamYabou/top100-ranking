@@ -29,7 +29,7 @@ func (a *actionSuite) SetupSuite() {
 func (a *actionSuite) SetupTest() {
 	test.Cleaner.Acquire("products", "categories")
 	// Populate the data into the tables
-	seedPath := fmt.Sprintf("%s/data.yml", variable.FixturesURI)
+	seedPath := fmt.Sprintf("%s/data.yml", variable.TestFixturesURI)
 	seed, err := os.Open(seedPath)
 	if err != nil {
 		a.T().Errorf("Failed to opent the seed, error: %v", err)
