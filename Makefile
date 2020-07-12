@@ -4,7 +4,7 @@ PROJECTNAME=$(shell basename "${PWD}")
 ## test: run all the test of the project.
 test: go-test
 
-## compile: compile the instructions located at the `./cmd` directory into the `./bin` directory.
+## compile: compile the instructions located in the `./cmd` directory into the `./bin` directory.
 compile: go-tidy go-compile-rpc-server-cmd
 
 go-test:
@@ -24,7 +24,7 @@ go-compile-rpc-server-cmd:
 .PHONY: help
 help: Makefile
 	@echo
-	@echo "  Choose a command to run in "${PROJECTNAME}": "
+	@echo "  Choose a command to run in "${PROJECTNAME}" project: "
 	@echo
 	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
 	@echo
