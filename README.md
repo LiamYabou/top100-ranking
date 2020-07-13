@@ -4,7 +4,7 @@ Top100 is a project that presents the top 100 categories in this world. At prese
 The explanation of the architecture can be found [here](https://github.com/LiamYabou/top100-scrapy/wiki/Architecture).
 
 ## Top100 Ranking
-The top100-ranking is a microservice of the Top100 project. It provisions the server of the RPC.
+The top100-ranking is a microservice of the Top100 project that provisions a server of the RPC to handle the request of fetching dedicated list of rankings.
 
 # Devlopment
 ## Dependencies
